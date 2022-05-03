@@ -1,21 +1,21 @@
 CFLAGS=-Wall
 COMP = clang++
 
-all: Client Server test
+all: client server test
 
-Client: Client.o
-	$(COMP) $(CFLAGS) Client.o -o Client -lpthread
+client: client.o
+	$(COMP) $(CFLAGS) client.o -o client -lpthread
 
-Server: Server.o
-	$(COMP) $(CFLAGS) Server.o -o Server -lpthread
+server: server.o
+	$(COMP) $(CFLAGS) server.o -o server -lpthread
 
 test: test.o
 	$(COMP) $(CFLAGS) test.o -o test
 
-Server.o: server.cpp
+server.o: server.cpp
 	$(COMP) -c $(CFLAGS) server.cpp -lpthread
 
-Client.o: client.cpp
+client.o: client.cpp
 	$(COMP) -c $(CFLAGS) client.cpp -lpthread
 
 test.o: test.cpp
@@ -24,5 +24,5 @@ test.o: test.cpp
 .PHONY: clean all
 
 clean:
-	rm *.o Client Server test
+	rm *.o client server test
 			
