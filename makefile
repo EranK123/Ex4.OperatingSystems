@@ -1,5 +1,5 @@
 CFLAGS=-Wall
-COMP = clang++
+COMP = g++
 
 all: client server test
 

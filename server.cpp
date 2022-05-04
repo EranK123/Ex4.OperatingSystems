@@ -23,24 +23,27 @@ using namespace std;
 
 // -------------- Malloc Free Imp ----------- //
 
+
 typedef struct _mem_dictionary
 {
     void *addr;
     size_t size;
     int freed;
 } mem_dictionary;
-
-mem_dictionary *dictionary;
-size_t dictionary_ct = 0;
-
+size_t dictionary_ct=0;
+mem_dictionary* dictionary;
 void *malloc(size_t size)
 {
      void *return_ptr = NULL;
      int i;
 
      if (dictionary == NULL) {
-         dictionary = (mem_dictionary*)(sbrk(1024 * sizeof(mem_dictionary)));
-         memset(dictionary, 0, 1024 * sizeof(mem_dictionary));
+         dictionary =(mem_dictionary*) sbrk(4096 * sizeof(mem_dictionary));
+         memset(dictionary, 0, 4096 * sizeof(mem_dictionary));
+     }
+     if(dictionary_ct>=4096 * sizeof(mem_dictionary))
+     {
+         dictionary_ct=0;
      }
 
      for (i = 0; i < dictionary_ct; i++)
@@ -77,6 +80,8 @@ void free(void *ptr)
         }
     }
 }
+
+
 
 // -------------- Stack Imp ----------- //
 
